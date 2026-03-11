@@ -1,0 +1,245 @@
+def welcome_players():   
+
+    print("Welcome to my version of Settlers of Catan! :)" + "\n")
+
+
+def print_commands_list():
+
+    print("""The available commands are as follows:
+> ccs: check commands
+> ert: erase terminal
+> End game: end game
+> pbc: print building costs
+> pod: print your own deck
+> Start game: start game
+> inf: open information commands
+> cr: display credits
+> ru: display rules
+> roll: roll die
+          
+Happy playing ^^ """)
+    
+
+def erase_terminal(reprint):
+
+    ##I'll write in the code later hahahah
+    pass
+
+
+def end_game():
+    
+    pass
+
+
+def print_building_costs():
+
+    pass
+
+
+def print_own_deck(turn : classmethod):
+
+    pass
+
+
+def clear_terminal():
+    
+    ###bro this might be one of the MOST important programs
+    ###wait whats even the point of them clearing the terminal if its gonna repritn automatically...
+    ###do i need two files
+    ###bc im lowk invested on ts
+    pass
+
+
+def define_available_commands():
+
+    class Commands_List:
+        def __init__(self):
+            self.ccs = [print_commands_list, "ccs"]
+            self.ert = [erase_terminal, "ert"]
+            self.endgame = [end_game, "end game"]
+            self.building_costs = [print_building_costs, "pbc"]
+            self.own_deck = [print_own_deck, "pod"]
+
+
+    available_commands = ["ccs", "ert", "end game", "lbc", "lcd", "start game", "inf", "cr", "ru", "roll"]
+
+    ##for the record, im not sure if im going to use the rest of this or just process the values differently
+    ##what i mean by this is: I can choose to process unavailable commands either post-recieving or simply filter out unavailable commands immediately, which is what this aims to achieve
+    
+    game_only_commands = ["end_game", "lcd"]
+
+    no_game_commands = []
+    for i in available_commands:
+        if i not in game_only_commands:
+            no_game_commands.append(i)
+
+    class Game_States:
+        def __init__(self):
+            self.in_game = available_commands.remove("start game")
+            self.no_game = no_game_commands
+
+    return available_commands, Game_States
+    
+
+
+def recieve_input():
+
+    available_commands, Game_States = define_available_commands()
+
+    user_action = ""
+    while user_action not in available_commands:
+        user_action = input("What command?\n")
+        if user_action not in available_commands:
+            print("Hey... if you need to look at the commands list, just type 'ccs' to see the available inputs for each action!")
+        else: 
+            print("Okay! Processing...")
+
+    return user_action
+
+
+def print_credits():
+    print("""Code created by Vivienne C, Kellett School Hong Kong
+          Official game belongs to CATAN""")
+
+
+def print_game_rules():
+    
+    print("""My lovely people, the official catan link is available at this link! 
+          https://www.catan.com/sites/default/files/2024-01/Almanac%20CATAN-3D.pdf
+          I mean... I sure hope it works? But if the link doesn't work you can just search it up :D""")
+
+    
+def create_cache():
+
+    filename = input("We'll quickly open a file to store your game data."
+                    + "What would you like to name your file?")
+    with open(filename, 'w') as catan_file:
+        catan_file.write("SETTLERS OF CATAN :)")
+    
+    return catan_file
+
+
+def write_into_cache(catan_file, logged_sentence : str):
+
+    catan_file.write(logged_sentence)
+
+
+def create_player_assets():
+
+    player_info = get_player_info()
+
+
+def initialise_resource_card_setup():
+
+    class Resource_Cards:
+        def __init__(self):
+            self.ores = 0
+            self.grain = 0
+            self.wood = 0
+            self.brick = 0
+            self.sheep = 0
+    
+    return Resource_Cards
+
+def edit_resource_bank(Resource_Cards):
+
+    resource_bank = Resource_Cards()
+    for resource in resource_bank:
+        resource += 19
+
+
+def initialise_development_card_setup():
+
+    class Development_Cards:
+        def __init__(self):
+            self.knight_cards = 0
+            self.progress_cards = 0
+            self.victory_point_cards = 0
+    
+    return Development_Cards
+
+def edit_development_bank():
+    pass
+
+def initialise_player_decks():
+    
+    Resource_Cards = initialise_resource_card_setup()
+    Development_Cards = initialise_development_card_setup()
+
+    class Player_Deck:
+        def __init__(self):
+            self.resource_cards = Resource_Cards
+            self.development_cards = Development_Cards
+
+
+
+def initialise_player_classes():
+
+    Player_Deck = initialise_player_decks()
+
+    class Player_Info:
+        def __init__(self):
+            self.name = "empty"
+            self.order = 0
+            self.color = ""
+            self.deck = Player_Deck
+    
+    return Player_Info
+
+        
+def get_number_of_players():
+
+    loop = True
+    while loop:
+        try:
+            number_of_players = int(input())
+            while not isinstance(number_of_players, int) or (number_of_players != 3 or number_of_players != 4):
+                print("Hi, please enter it as a whole integer of either 3 and 4!")
+                number_of_players = int(input())
+                loop = False
+            
+        except TypeError:
+            print("Hi, are you sure that your variable is written in arabic numerals? ^^")
+
+    return number_of_players
+
+
+def get_player_info():
+
+    Player_Info = initialise_player_classes()
+
+    number_of_players = get_number_of_players()
+    player_names = get_player_names(number_of_players)
+    player_infolist = []
+
+    return player_infolist
+
+
+def get_player_names(number_of_players : int):
+    
+    name_list = []
+
+    for i in range(number_of_players):
+
+        loop = True
+        while loop:
+            name = input(f"Player {i+1}, what's your name?")
+            repeat = input("Are you sure?")
+            if repeat.lower() == "y":
+                loop = False
+            if repeat.lower() == "n":
+                pass
+            else:
+                print("Type either 'Y' or 'N', silly kid!")
+        
+        name_list.append(name)
+
+    return name_list
+
+    # note for later: need to figure out the correct way to nest the loop. For now I'll just move on
+
+
+welcome_players()
+print_commands_list()
+recieve_input()
+edit_resource_bank(initialise_resource_card_setup())
