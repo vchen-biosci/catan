@@ -1,0 +1,54 @@
+from colorama import Fore, Back, Style, init
+from os import system
+import random
+
+init(autoreset=True)
+
+def welcome_players():
+
+    print("CATAN SIMULATOR - made by VIVIVIVIVIVIVIIII!!!")
+    print("Welcome to my version of Settlers of Catan! :)" + "\n")
+
+def print_info(mode):
+
+    if mode == "commands":
+        print("commands")
+    elif mode == "credits":
+        print("credits")
+    elif mode == "previous game log":
+        print("previous game log")
+    elif mode == "rules":
+        print("rules")
+    else:
+        print("all_info imma use for i in range here")
+
+def main():
+    game = False#this will be put into the class later haha
+    ##start by welcoming the players
+    ##btw imma put everything that needs to access data into a class called Game
+    welcome_players()
+    ##then, ask the player if they want to display more information or start the game
+
+    while game == False:
+        loop = True
+        while loop:
+            action = input("What would you like to do? View information ('info') or start a new game? ('start')\n").strip().lower()
+            if action == "info":
+                print_info("")
+                loop = False
+            elif action == "cmds":
+                print_info("commands")
+                loop = False
+            elif action == "start":
+                loop = False
+                game = True
+                print("game is starting!")
+            else:
+                print("That's not an available command! Type 'cmds' to see the available commands!")
+
+        
+    while game == True:
+        pass
+
+if __name__ == "__main__": 
+    main()
